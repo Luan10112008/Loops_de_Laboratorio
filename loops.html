@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Contatos</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .container {
+      margin: 30px auto;
+      width: 90%;
+      max-width: 600px;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #00c6ff;
+      color: black;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0072ff;
+      color: white;
+    }
+
+    input {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 80%;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .contact {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+
+<header> Lista de Contatos</header>
+
+<div class="container">
+
+  <h2>Ações</h2>
+
+  <button onclick="showFirst()">Primeiro</button>
+  <button onclick="showLast()">Último</button>
+  <button onclick="showAll()">Todos</button>
+
+  <h3>Adicionar Novo Contato</h3>
+
+  <input type="text" id="name" placeholder="Nome">
+  <input type="text" id="phone" placeholder="Telefone">
+  <input type="email" id="email" placeholder="Email">
+
+  <button onclick="addContact()">Adicionar</button>
+
+  <h2>Contatos</h2>
+  <div id="output"></div>
+
+</div>
+
+<script>
+  let contacts = [
+    {
+      name: "Maxwell Wright",
+      phone: "(0191) 719 6495",
+      email: "Curabitur.egestas.nunc@nonummyac.co.uk"
+    },
+    {
+      name: "Raja Villarreal",
+      phone: "0866 398 2895",
+      email: "posuere.vulputate@sed.com"
+    },
+    {
+      name: "Helen Richards",
+      phone: "0800 1111",
+      email: "libero@convallis.edu"
+    }
+  ];
+
+  function render(contactList) {
+    const output = document.getElementById("output");
+    output.innerHTML = "";
+
+    for (const c of contactList) {
+      output.innerHTML += `
+        <div class="contact">
+          <strong>${c.name}</strong><br>
+          📞 ${c.phone}<br>
+          ✉️ ${c.email}
+        </div>
+      `;
+    }
+  }
+
+  function showFirst() {
+    if (contacts.length === 0) return;
+    render([contacts[0]]);
+  }
+
+  function showLast() {
+    if (contacts.length === 0) return;
+    render([contacts[contacts.length - 1]]);
+  }
+
+  function showAll() {
+    render(contacts);
+  }
+
+  function addContact() {
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+
+    if (!name || !phone || !email) {
+      alert("Preencha todos os campos!");
+      return;
+    }
+
+    contacts.push({ name, phone, email });
+
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("email").value = "";
+
+    showAll();
+  }
+</script>
+
+</body>
+</html>
